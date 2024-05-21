@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using Pajophone.Data.Contexts;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ApplicationContext>(
+    options => options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"), 
+        new MySqlServerVersion(new Version(8,4,0))));
 
 var app = builder.Build();
 
