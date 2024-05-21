@@ -3,10 +3,8 @@
 
 namespace Pajophone.Models;
 
-public class BaseModel
+public interface IBaseModel
 {
-    [DataType(DataType.Date)]
     public DateTime CreatedAt { get; set; }
-    [DataType(DataType.Date)]
     public DateTime LastEditedAt { get; set; }
 }
