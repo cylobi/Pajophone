@@ -1,7 +1,7 @@
 ﻿
 namespace Pajophone.Models;
 
-public class ProductModel : IBaseModel
+public class ProductModel 
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -13,9 +13,14 @@ public class ProductModel : IBaseModel
 
     public List<ProductFieldModel> ExtraFields { set; get; }
 
+    public int? CategoryId { get; set; }
+    public ProductCategoryModel? Category { get; set; }
+
 
     public ProductModel()
     {
         Image = [];
+        CreatedAt = DateTime.Now;
+        LastEditedAt = DateTime.Now;
     }
 }
