@@ -10,4 +10,5 @@ public class ApplicationContext : DbContext
     }
     public DbSet<ProductModel> Products { get; set; } = null!;
     public DbSet<ProductFieldModel> ProductFields { get; set; } = null!;
+    public DbSet<ProductCategoryModel> ProductCategories { get; set; } = null!;
 }
