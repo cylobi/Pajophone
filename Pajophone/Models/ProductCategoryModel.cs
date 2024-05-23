@@ -6,4 +6,5 @@ public class ProductCategoryModel
     public string Name { get; set; } = default!;
     public int? ParentCategoryId { get; set; }
     public ProductCategoryModel? ParentCategory { get; set; }
+    
 }
