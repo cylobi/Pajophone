@@ -1,57 +1,55 @@
-﻿namespace Pajophone.Models.Builder;
+﻿namespace Pajophone.Models.Builders;
 
-public class ProductBuilder
+public class ProductBuilder : Builder<ProductModel>
 {
-        protected ProductModel Product { get; set; }
-
         public ProductBuilder()
         {
-                Product = new ProductModel();
+                Model = new ProductModel();
         }
-
-        public ProductBuilder BuildBasicProduct(string name, string description, string color)
+        protected ProductBuilder SetBasicProduct(string name, string description, string color)
         {
-                Product.Name = name;
-                Product.Description = description;
-                Product.Color = color;
+                Model.Name = name;
+                Model.Description = description;
+                Model.Color = color;
                 return this;
         }
-        
         public ProductBuilder SetId(int id)
         {
-                Product.Id = id;
+                Model.Id = id;
                 return this;
         }
-
         public ProductBuilder AddImage(IFormFile file)
         {
-                Product.Image = ConvertIFormFileToByteArray(file);
+                Model.Image = ConvertIFormFileToByteArray(file);
                 return this;
         }
         
-        public ProductBuilder AddCategory(string name)
+        public ProductBuilder AddCategory(int categoryId)
         {
-                ProductCategoryModel category = new ProductCategoryModel();
-                category.Name = name;
-                Product.Category = category;
+                Model.CategoryId = categoryId;
                 return this;
         }
-        
-        public ProductBuilder AddField(string key, string value)
+        public ProductBuilder AddField(ProductFieldModel field)
         {
-                ProductFieldModel field = new ProductFieldModel();
-                field.key = key;
-                field.value = value;
-                Product.ExtraFields.Add(field);
+                Model.ExtraFields.Add(field);
                 return this;
         }
-
-        public ProductModel Build()
-        { 
-                return Product;
+        public ProductBuilder SetFields(List<ProductFieldModel> fields)
+        {
+                Model.ExtraFields = fields;
+                return this;
         }
-        
-        protected byte[] ConvertIFormFileToByteArray(IFormFile formFile)
+        public ProductBuilder AddFields(List<ProductFieldModel> fields)
+        {
+                Model.ExtraFields.AddRange(fields);
+                return this;
+        }
+        public override ProductModel Build()
+        {
+                Model.LastEditedAt = DateTime.Now;
+                return Model;
+        }
+        private byte[] ConvertIFormFileToByteArray(IFormFile formFile)
         {
                 using var memoryStream = new MemoryStream();
                 formFile.CopyTo(memoryStream);
