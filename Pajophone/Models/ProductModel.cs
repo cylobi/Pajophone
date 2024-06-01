@@ -1,7 +1,7 @@
 ﻿
 namespace Pajophone.Models;
 
-public class ProductModel 
+public class ProductModel : IModel
 {
     public int Id { get; set; }
     public string Name { get; set; }
