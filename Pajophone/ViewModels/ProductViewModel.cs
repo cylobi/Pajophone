@@ -10,6 +10,6 @@ public class ProductViewModel
     public string Color { get; set; }
     public IFormFile Image { get; set; }
 
-    public List<ProductFieldViewModel> Fields { set; get; }
-    public List<ProductCategoryModel> Categories { set; get; }
+    public List<ProductFieldViewModel>? Fields { set; get; }
+    public List<ProductCategoryModel>? Categories { set; get; }
 }
