@@ -2,6 +2,7 @@
 
 public class ProductFieldViewModel
 {
-    public string key { get; set; }
-    public string value { get; set; }
+    public int Id { get; set; }
+    public string Key { get; set; }
+    public string Value { get; set; }
 }
