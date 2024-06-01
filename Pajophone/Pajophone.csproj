@@ -7,6 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="11.9.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.5" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.5" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.5">
         <PrivateAssets>all</PrivateAssets>
@@ -25,6 +27,55 @@
 
     <ItemGroup>
       <Folder Include="Migrations\" />
+      <Folder Include="wwwroot\assets\FontAwesome\" />
+      <Folder Include="wwwroot\assets\Quicksand-font\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-grid.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-grid.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-grid.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-grid.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-grid.rtl.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-grid.rtl.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-grid.rtl.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-grid.rtl.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-reboot.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-reboot.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-reboot.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-reboot.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-reboot.rtl.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-reboot.rtl.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-reboot.rtl.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-reboot.rtl.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-utilities.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-utilities.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-utilities.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-utilities.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-utilities.rtl.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-utilities.rtl.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-utilities.rtl.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle-utilities.rtl.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle.rtl.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle.rtl.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle.rtl.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\css\materialstyle.rtl.min.css.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\js\materialstyle.bundle.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\js\materialstyle.bundle.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\js\materialstyle.bundle.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\js\materialstyle.bundle.min.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\js\materialstyle.esm.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\js\materialstyle.esm.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\js\materialstyle.esm.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\js\materialstyle.esm.min.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\js\materialstyle.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\js\materialstyle.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\js\materialstyle.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\material-style\js\materialstyle.min.js.map" />
     </ItemGroup>
 
 </Project>
