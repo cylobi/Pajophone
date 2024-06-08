@@ -1,0 +1,14 @@
+﻿#sidebar {
+    position: sticky;
+    right: 0;
+    top: 0;
+    z-index: 100; 
+    background-color: #f8f9fa;
+    width: 300px;
+}
+
+@media (min-width: 992px) {
+    #sidebar {
+        display: block!important;
+    }
+}

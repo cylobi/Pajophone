@@ -1,4 +1,5 @@
-﻿CREATE DATABASE pajophone;
-CREATE USER 'user'@'%' IDENTIFIED BY 'password';
-GRANT ALL ON pajophone.* TO 'user'@'%';
+﻿CREATE DATABASE IF NOT EXISTS pejophone;
+
+CREATE USER IF NOT EXISTS 'user'@'%' IDENTIFIED BY 'password';
+GRANT ALL ON pejophone.* TO 'user'@'%';
 FLUSH PRIVILEGES;

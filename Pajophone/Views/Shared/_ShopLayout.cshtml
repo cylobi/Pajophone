@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - Pajophone</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/assets/FontAwesome/css/all.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/Pajophone.styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/Layouts/_ShopLayout.css" asp-append-version="true" />
+    @(await RenderSectionAsync("Style"))
+</head>
+<body>
+<header>
+    <div class="container-fluid px-0">
+        <nav class="navbar navbar-expand-sm bg-light border-bottom box-shadow mb-0">
+            <div class="container-fluid d-flex flex-row justify-content-between">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                    <img id="logo" src="~/Logo.png" alt="">
+                    Pajophone
+                </a>
+                <div class="me-2">
+                    <button class="border-0 bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-controls="sidebar" aria-expanded="false">
+                        <i class="fa-regular fa-sliders" id="slider-button" alt="slider"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+@RenderBody()
+
+<footer >
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+        <p class="text-center"> @@2024 Pajophone - Designed by Cylobi </p>
+    </div>
+</footer>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/FontAwesome/js/all.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+</script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

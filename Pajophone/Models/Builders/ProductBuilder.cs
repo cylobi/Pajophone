@@ -1,4 +1,7 @@
-﻿namespace Pajophone.Models.Builders;
+﻿using System.Reflection.Metadata.Ecma335;
+using NuGet.Packaging;
+
+namespace Pajophone.Models.Builders;
 
 public class ProductBuilder : Builder<ProductModel>
 {
@@ -6,7 +9,7 @@ public class ProductBuilder : Builder<ProductModel>
         {
                 Model = new ProductModel();
         }
-        protected ProductBuilder SetBasicProduct(string name, string description, string color)
+        public ProductBuilder SetBasicProduct(string name, string description, string color)
         {
                 Model.Name = name;
                 Model.Description = description;
@@ -24,24 +27,20 @@ public class ProductBuilder : Builder<ProductModel>
                 return this;
         }
         
-        public ProductBuilder AddCategory(int categoryId)
+        public ProductBuilder AddImage(byte[] file)
         {
-                Model.CategoryId = categoryId;
+                Model.Image = file;
                 return this;
         }
-        public ProductBuilder AddField(ProductFieldModel field)
+        public ProductBuilder AddFieldValueId(int id)
         {
-                Model.ExtraFields.Add(field);
+                Model.FieldvaluesId.Add(id);
                 return this;
         }
-        public ProductBuilder SetFields(List<ProductFieldModel> fields)
+
+        public ProductBuilder AddFieldValuesId(ICollection<int> ids)
         {
-                Model.ExtraFields = fields;
-                return this;
-        }
-        public ProductBuilder AddFields(List<ProductFieldModel> fields)
-        {
-                Model.ExtraFields.AddRange(fields);
+                Model.FieldvaluesId.AddRange(ids);
                 return this;
         }
         public override ProductModel Build()

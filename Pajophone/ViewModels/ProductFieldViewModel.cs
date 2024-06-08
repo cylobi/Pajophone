@@ -1,8 +1,11 @@
-﻿namespace Pajophone.ViewModels;
+﻿using Pajophone.Models;
 
-public class ProductFieldViewModel
+namespace Pajophone.ViewModels;
+
+public class ProductFieldViewModel : IViewModel
 {
     public int Id { get; set; }
     public string Key { get; set; }
     public string Value { get; set; }
+    public FieldType fieldType { get; set; }
 }
