@@ -32,15 +32,16 @@ public class ProductBuilder : Builder<ProductModel>
                 Model.Image = file;
                 return this;
         }
-        public ProductBuilder AddFieldValueId(int id)
+
+        public ProductBuilder AddPrice(double price)
         {
-                Model.FieldvaluesId.Add(id);
+                Model.Price = price;
                 return this;
         }
 
-        public ProductBuilder AddFieldValuesId(ICollection<int> ids)
+        public ProductBuilder SetCategory(ProductCategoryModel category)
         {
-                Model.FieldvaluesId.AddRange(ids);
+                Model.Category = category;
                 return this;
         }
         public override ProductModel Build()

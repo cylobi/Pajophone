@@ -3,7 +3,7 @@ namespace Pajophone.ViewModels;
 
 public class ProductFieldKeyViewModel : IViewModel
 {
-    public int Id { get; set; }
+    public int? Id { get; set; }
     public string Key { get; set; }
     public FieldType fieldType { get; set; }
 }

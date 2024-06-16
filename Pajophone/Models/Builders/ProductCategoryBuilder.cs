@@ -30,25 +30,10 @@ public class ProductCategoryBuilder : Builder<ProductCategoryModel>
         Model.ParentCategoryId = id;
         return this;
     }
-    public ProductCategoryBuilder AddFieldKeyId(int id)
-    {
-        Model.FieldKeysId.Add(id);
-        return this;
-    }
 
-    public ProductCategoryBuilder AddFieldKeysId(ICollection<int> ids)
+    public ProductCategoryBuilder SetParentCategory(ProductCategoryModel parentCategory)
     {
-        Model.FieldKeysId.AddRange(ids);
-        return this;
-    }
-    public ProductCategoryBuilder AddProductId(int id)
-    {
-        Model.ProductsId.Add(id);
-        return this;
-    }
-    public ProductCategoryBuilder AddProductsId(ICollection<int> ids)
-    {
-        Model.ProductsId.AddRange(ids);
+        Model.ParentCategory = parentCategory;
         return this;
     }
     public override ProductCategoryModel Build()

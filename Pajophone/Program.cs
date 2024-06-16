@@ -1,6 +1,8 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Pajophone.AutoMapper;
+using Pajophone.Data;
 using Pajophone.Data.Contexts;
 using Pajophone.Models;
 using Pajophone.Models.Builders;
@@ -14,9 +16,17 @@ builder.Services.AddDbContext<ApplicationContext>(
     options => options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"), 
         new MySqlServerVersion(new Version(8,4,0))));
+builder.Services.AddAutoMapper(typeof(ProductMapperProfile));
 builder.Services.AddScoped<IValidator<ProductModel>, ProductValidator>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+    context.SeedData();
+}
+ 
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -7,4 +7,7 @@ public class ProductFieldValueModel : IModel
 
     public int FieldKeyId { get; set; }
     public ProductFieldKeyModel? FieldKey { get; set; }
+    
+    public int ProductId { get; set; }
+    public ProductModel? Product { get; set; }
 }

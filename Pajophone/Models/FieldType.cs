@@ -5,5 +5,4 @@ public enum FieldType
     Bool,
     Range,
     String,
-    
 }

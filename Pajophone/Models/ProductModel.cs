@@ -11,10 +11,12 @@ public class ProductModel : IModel
     public byte[]? Image { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime LastEditedAt { get; set; }
-
-    public ICollection<int> FieldvaluesId { get; set; } = new HashSet<int>();
+    
     public ICollection<ProductFieldValueModel>? FieldValues { set; get; } = new HashSet<ProductFieldValueModel>();
 
+    public int CategoryId { get; set; }
+    public ProductCategoryModel? Category { get; set; }
+    
     public ProductModel()
     {
         Image = [];

@@ -6,6 +6,12 @@ public class ProductFieldValueBuilder : Builder<ProductFieldValueModel>
     {
         Model = new ProductFieldValueModel();
     }
+
+    public ProductFieldValueBuilder SetBasicField(string value)
+    {
+        Model.Value = value;
+        return this;
+    }
     public ProductFieldValueBuilder SetBasicField(int keyId, string value)
     {
         Model.FieldKeyId = keyId;
@@ -23,6 +29,18 @@ public class ProductFieldValueBuilder : Builder<ProductFieldValueModel>
     public ProductFieldValueBuilder SetId(int id)
     {
         Model.Id = id;
+        return this;
+    }
+
+    public ProductFieldValueBuilder SetProduct(ProductModel product)
+    {
+        Model.Product = product;
+        return this;
+    }
+
+    public ProductFieldValueBuilder SetFieldKey(ProductFieldKeyModel fieldKey)
+    {
+        Model.FieldKey = fieldKey;
         return this;
     }
     public override ProductFieldValueModel Build()

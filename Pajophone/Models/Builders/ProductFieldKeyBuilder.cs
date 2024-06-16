@@ -22,6 +22,12 @@ public class ProductFieldKeyBuilder : Builder<ProductFieldKeyModel>
         return this;
     }
 
+    public ProductFieldKeyBuilder SetCategory(ProductCategoryModel category)
+    {
+        Model.Category = category;
+        return this;
+    }
+
     public ProductFieldKeyBuilder SetId(int id)
     {
         Model.Id = id;
