@@ -31,6 +31,7 @@
       <Folder Include="Migrations\" />
       <Folder Include="wwwroot\assets\FontAwesome\" />
       <Folder Include="wwwroot\assets\Quicksand-font\" />
+      <Folder Include="wwwroot\lib\bs5tree\" />
     </ItemGroup>
 
     <ItemGroup>

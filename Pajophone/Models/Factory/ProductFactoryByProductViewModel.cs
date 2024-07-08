@@ -7,7 +7,7 @@ public class ProductFactoryByProductViewModel(ProductViewModel viewModel) : IPro
 {
     private readonly ProductViewModel _viewModel = viewModel;
     
-    public ProductModel GetProduct(ProductCategoryModel categoryModel)
+    public ProductModel GetProduct()
     {
         var builder = new ProductBuilder()
             .SetBasicProduct(_viewModel.Name, _viewModel.Description, _viewModel.Color)
@@ -16,8 +16,25 @@ public class ProductFactoryByProductViewModel(ProductViewModel viewModel) : IPro
         {
             builder.AddImage(_viewModel.Image);
         }
+
+        if (_viewModel.Category is { Id: not null })
+        {
+            builder.SetCategoryId(_viewModel.Category.Id.Value);
+        }
         return builder
-            .SetCategory(categoryModel)
             .Build();
+    }
+
+    public ICollection<ProductFieldValueModel> GetFieldValues(ProductModel product)
+    {
+        if (_viewModel.Fields.All(f => f.KeyId.HasValue) == false)
+        {
+            throw new Exception();
+        }
+        
+        return _viewModel.Fields?.Select(f => new ProductFieldValueBuilder()
+            .SetBasicField(f.KeyId.Value, f.Value)
+            .SetProduct(product)
+            .Build()).ToList();
     }
 }

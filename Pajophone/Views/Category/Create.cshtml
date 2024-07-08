@@ -1,0 +1,92 @@
+
+@model Pajophone.ViewModels.ProductCategoryViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ProductCategoryModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div id="category_tree"></div>
+            <div class="my-2"> Selected Parent Category : <span id="selected_parent"></span> </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group visually-hidden">
+                <label asp-for="ParentId" class="control-label"></label>
+                <input asp-for="ParentId" id="selected_parent_id" class="form-control"></input>
+            </div>
+            <div class="mt-2"> Fields : </div>
+            <div id="field_group">
+                <div id="field_template" class="input-group m-3">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-danger" id="DeleteRow" type="button">
+                            <i class="fa-regular fa-trash"></i>
+                        </button>
+                    </div>
+                    <input type="text" class="form-control m-input fieldkey" placeholder="FieldKey" id="fieldKey[0].fieldKey">
+                    <div> @Html.DropDownList("FieldType",
+                              Html.GetEnumSelectList<FieldType>(),
+                              "Field Type",new { @class = "form-control" })</div>
+                </div>
+            </div>
+                <button id="rowAdder" type="button" class="btn btn-dark ms-3">
+                    <span class="fa fa-solid fa-plus"></span>
+                </button>
+            <div class="form-group mt-2">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts
+{
+    <script>
+        $.getJSON(
+            '@Url.Action("GetTree")',
+            function(data) {
+                console.log(data);
+                $('#category_tree').tree({
+                    data: data
+                });
+            }
+        );
+
+        $("#category_tree").on(
+            'tree.select',
+            function(event) {
+                if (event.node) {
+                    const node = event.node;
+                    $("#selected_parent").text(node.name);
+                    $("#selected_parent_id").val(node.id);
+                }
+            }
+        );
+        
+        let rnd = 1
+        $("#rowAdder").click(function () {
+            let field_template = $("#field_template").clone();
+            field_template.attr('id', rnd.toString());
+            field_template.find(".fieldkey").val("");
+            $('#field_group').append(field_template);
+            rnd++;
+        });
+        $("body").on("click", "#DeleteRow", function () {
+            $(this).parents("#row").remove();
+        })
+    
+    </script>
+}

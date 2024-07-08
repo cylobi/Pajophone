@@ -44,6 +44,13 @@ public class ProductBuilder : Builder<ProductModel>
                 Model.Category = category;
                 return this;
         }
+
+        public ProductBuilder SetCategoryId(int categoryId)
+        {
+                Model.CategoryId = categoryId;
+                return this;
+        }
+        
         public override ProductModel Build()
         {
                 Model.LastEditedAt = DateTime.Now;

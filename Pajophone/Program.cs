@@ -6,6 +6,7 @@ using Pajophone.Data;
 using Pajophone.Data.Contexts;
 using Pajophone.Models;
 using Pajophone.Models.Builders;
+using Pajophone.Models.Factory;
 using Pajophone.Models.Validator;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +18,9 @@ builder.Services.AddDbContext<ApplicationContext>(
         builder.Configuration.GetConnectionString("DefaultConnection"), 
         new MySqlServerVersion(new Version(8,4,0))));
 builder.Services.AddAutoMapper(typeof(ProductMapperProfile));
-builder.Services.AddScoped<IValidator<ProductModel>, ProductValidator>();
+builder.Services.AddTransient<IValidator<ProductModel>, ProductValidator>();
+// builder.Services.AddTransient<IProductFactory, ProductFactoryByProductViewModel>();
+builder.Services.AddTransient<ICategoryFactory, CategoryFactoryByProductViewModel>();
 
 var app = builder.Build();
 

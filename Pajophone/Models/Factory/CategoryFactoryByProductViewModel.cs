@@ -2,9 +2,20 @@
 using Pajophone.Models.Builders;
 namespace Pajophone.Models.Factory;
 
-public class CategoryFactoryByProductViewModel(ProductCategoryViewModel viewModel) : ICategoryFactory
+public class CategoryFactoryByProductViewModel : ICategoryFactory
 {
-    private readonly ProductCategoryViewModel _viewModel = viewModel;
+    private ProductCategoryViewModel _viewModel;
+    private ProductCategoryModel _category ;
+
+    public void SetViewModel(ProductCategoryViewModel viewModel)
+    {
+        _viewModel = viewModel;
+    }
+
+    private void SetCategory(ProductCategoryModel category)
+    {
+        _category = category;
+    }
 
     public ProductCategoryModel GetCategory()
     {
@@ -14,10 +25,13 @@ public class CategoryFactoryByProductViewModel(ProductCategoryViewModel viewMode
         {
             builder.SetParentCategoryId(_viewModel.ParentId.Value);
         }
-        return builder.Build();
+        var category = builder.Build();
+        
+        SetCategory(category);
+        return _category;
     }
 
-    public HashSet<ProductFieldKeyModel> GetFieldKeys(ProductCategoryModel category)
+    public HashSet<ProductFieldKeyModel> GetFieldKeys()
     {
         return _viewModel
             .FieldKeys

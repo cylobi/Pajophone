@@ -1,0 +1,20 @@
+﻿#div-custom {
+    height: 10vh;
+    width : 20vh;
+    background: #6a1a21;
+}
+
+button {
+    background: none;
+    border : none;
+}
+
+#logo {
+    height: 7rem;
+    width : 7rem;
+}
+
+#slider-button {
+    height: 2rem;
+    width: 2rem;
+}
