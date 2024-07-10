@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Pajophone.Data.Contexts;
 using Pajophone.Models;
 using Pajophone.Models.Builders;
+using Pajophone.Models.Factory;
 using Pajophone.ViewModels;
 
 namespace Pajophone.Controllers
@@ -15,10 +16,12 @@ namespace Pajophone.Controllers
     public class ProductController : Controller
     {
         private readonly ApplicationContext _context;
+        private readonly IProductFactory _factory;
 
-        public ProductController(ApplicationContext context)
+        public ProductController(ApplicationContext context, IProductFactory factory)
         {
             _context = context;
+            _factory = factory;
         }
 
         // GET: Product
@@ -61,21 +64,18 @@ namespace Pajophone.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductViewModel productViewModel)
         {
-            var productModel = new ProductModel();
             if (ModelState.IsValid)
             {
-                // var product = new ProductBuilder()
-                //     .SetBasicProduct(productViewModel.Name, productViewModel.Description, productViewModel.Color)
-
-                
-                _context.Add(productModel);
+                _factory.SetViewModel(productViewModel);
+                var product = _factory.GetProduct();
+                var fieldValues = _factory.GetFieldValues();
+                _context.Add(product);
+                _context.AddRange(fieldValues);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            
-            
-            ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Id", productModel.CategoryId);
-            return View(productModel);
+            // ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Id", productModel.CategoryId);
+            return View(productViewModel);
         }
 
         // GET: Product/Edit/5

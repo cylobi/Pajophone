@@ -1,0 +1,13 @@
+﻿@model Pajophone.ViewModels.ProductCategoryViewModel
+
+<div class="field_template input-group m-3">
+    <div class="input-group-prepend">
+        <button class="btn btn-danger DeleteRow" type="button">
+            <i class="fa-regular fa-trash"></i>
+        </button>
+    </div>
+    <input type="text" class="form-control m-input" placeholder="Field Name" name="FieldKeys[0].Key">
+    @Html.DropDownList("FieldKeys[0].FieldType",
+        Html.GetEnumSelectList<FieldType>(),
+        new { @class = "form-control"})
+</div>

@@ -5,16 +5,11 @@ namespace Pajophone.Models.Factory;
 public class CategoryFactoryByProductViewModel : ICategoryFactory
 {
     private ProductCategoryViewModel _viewModel;
-    private ProductCategoryModel _category ;
+    private ProductCategoryModel? _category ;
 
     public void SetViewModel(ProductCategoryViewModel viewModel)
     {
         _viewModel = viewModel;
-    }
-
-    private void SetCategory(ProductCategoryModel category)
-    {
-        _category = category;
     }
 
     public ProductCategoryModel GetCategory()
@@ -22,21 +17,19 @@ public class CategoryFactoryByProductViewModel : ICategoryFactory
         var builder = new ProductCategoryBuilder()
             .SetBasicCategory(_viewModel.Name);
         if (_viewModel.ParentId != null)
-        {
             builder.SetParentCategoryId(_viewModel.ParentId.Value);
-        }
-        var category = builder.Build();
-        
-        SetCategory(category);
+        _category = builder.Build();
         return _category;
     }
 
-    public HashSet<ProductFieldKeyModel> GetFieldKeys()
+    public List<ProductFieldKeyModel> GetFieldKeys()
     {
+        if (_category == null)
+            throw new Exception("ERROR : CANNOT CALL GetFieldKeys() BEFORE GetCategory() ");
         return _viewModel
             .FieldKeys
             .Select(fk => new ProductFieldKeyBuilder()
-                .SetBasicField(fk.Key, fk.fieldType)
-                .Build()).ToHashSet();
+                .SetBasicField(fk.Key, fk.FieldType)
+                .Build()).ToList();
     }
 }

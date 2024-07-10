@@ -5,7 +5,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>@ViewData["Title"]</h1>
 
 <h4>ProductCategoryModel</h4>
 <hr />
@@ -24,19 +24,8 @@
                 <label asp-for="ParentId" class="control-label"></label>
                 <input asp-for="ParentId" id="selected_parent_id" class="form-control"></input>
             </div>
-            <div class="mt-2"> Fields : </div>
+            <div class="my-2"> Fields : </div>
             <div id="field_group">
-                <div id="field_template" class="input-group m-3">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-danger" id="DeleteRow" type="button">
-                            <i class="fa-regular fa-trash"></i>
-                        </button>
-                    </div>
-                    <input type="text" class="form-control m-input fieldkey" placeholder="FieldKey" id="fieldKey[0].fieldKey">
-                    <div> @Html.DropDownList("FieldType",
-                              Html.GetEnumSelectList<FieldType>(),
-                              "Field Type",new { @class = "form-control" })</div>
-                </div>
             </div>
                 <button id="rowAdder" type="button" class="btn btn-dark ms-3">
                     <span class="fa fa-solid fa-plus"></span>
@@ -55,12 +44,13 @@
 @section Scripts
 {
     <script>
+
         $.getJSON(
             '@Url.Action("GetTree")',
             function(data) {
-                console.log(data);
                 $('#category_tree').tree({
-                    data: data
+                    data: data,
+                    autoOpen: 0
                 });
             }
         );
@@ -76,17 +66,30 @@
             }
         );
         
-        let rnd = 1
+        function replaceIndexInNameAttr(elements) {
+            let index = 0;
+            elements.forEach(ele => {
+                ele.name = ele.name.replace(/\[\d+\]/g, `[${index}]`);
+                index ++;
+            })
+        }
+        
+        function reIndex() {
+            const inputs = document.querySelectorAll('#field_group input');
+            const selects = document.querySelectorAll('#field_group select');
+            replaceIndexInNameAttr(inputs);
+            replaceIndexInNameAttr(selects);
+        }
+        
         $("#rowAdder").click(function () {
-            let field_template = $("#field_template").clone();
-            field_template.attr('id', rnd.toString());
-            field_template.find(".fieldkey").val("");
-            $('#field_group').append(field_template);
-            rnd++;
+            $('#field_group').append(`@Html.Partial("partials/_FieldKeyInput", Model)`);
+            reIndex();
         });
-        $("body").on("click", "#DeleteRow", function () {
-            $(this).parents("#row").remove();
-        })
+        
+        $("body").on("click", ".DeleteRow", function () {
+            $(this).closest(".field_template").remove();
+            reIndex();
+        });
     
     </script>
 }

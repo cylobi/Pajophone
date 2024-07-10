@@ -19,7 +19,7 @@ builder.Services.AddDbContext<ApplicationContext>(
         new MySqlServerVersion(new Version(8,4,0))));
 builder.Services.AddAutoMapper(typeof(ProductMapperProfile));
 builder.Services.AddTransient<IValidator<ProductModel>, ProductValidator>();
-// builder.Services.AddTransient<IProductFactory, ProductFactoryByProductViewModel>();
+builder.Services.AddTransient<IProductFactory, ProductFactoryByProductViewModel>();
 builder.Services.AddTransient<ICategoryFactory, CategoryFactoryByProductViewModel>();
 
 var app = builder.Build();

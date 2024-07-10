@@ -10,7 +10,7 @@ public class ProductCategoryModel : IModel
     public int? ParentCategoryId { get; set; }
     public ProductCategoryModel? ParentCategory { get; set; }
     
-    public ICollection<ProductModel>? Products { get; set; } = new HashSet<ProductModel>();
+    public List<ProductModel>? Products { get; set; } = new List<ProductModel>();
     
-    public ICollection<ProductFieldKeyModel>? FieldKeys { get; set; } = new HashSet<ProductFieldKeyModel>();
+    public List<ProductFieldKeyModel>? FieldKeys { get; set; } = new List<ProductFieldKeyModel>();
 }

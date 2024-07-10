@@ -4,6 +4,7 @@ namespace Pajophone.Models.Factory;
 
 public interface IProductFactory
 {
+    public void SetViewModel(ProductViewModel viewModel);
     public ProductModel GetProduct();
-    public ICollection<ProductFieldValueModel> GetFieldValues(ProductModel product);
+    public List<ProductFieldValueModel> GetFieldValues();
 }

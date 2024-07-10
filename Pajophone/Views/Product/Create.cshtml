@@ -1,10 +1,10 @@
-@model Pajophone.Models.ProductModel
+@model Pajophone.ViewModels.ProductViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>@ViewData["Title"]</h1>
 
 <h4>ProductModel</h4>
 <hr />
@@ -12,6 +12,12 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div id="category_tree" class="form-group"></div>
+            <div class="my-2"> Selected Category : <span id="selected_category"></span> </div>
+            <div class="form-group visually-hidden">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <input asp-for="CategoryId" id="selected_category_id" class="form-control"></input>
+            </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -37,20 +43,39 @@
                 <input asp-for="Image" class="form-control" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastEditedAt" class="control-label"></label>
-                <input asp-for="LastEditedAt" class="form-control" />
-                <span asp-validation-for="LastEditedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
-            </div>
+            @{
+                for (int i = 0; i < Model.Fields.Count; i++)
+                {
+                    <div class="form-group">
+                        <div class="row">
+                            <input type="hidden" asp-for="Fields[i].KeyId" value="" />
+                            @{
+                                var fieldType = Model.Fields[i].fieldType;
+                                switch (fieldType)
+                                {
+                                    case FieldType.Bool:
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" />
+                                                <input type="text" class="visually-hidden" asp-for="Fields[i].Value">
+                                            </label>
+                                        </div>
+                                        break;
+                                    case FieldType.Range:
+                                        <input type="number" name="@($"FieldValues[{Model}]")" value="@Model" />
+                                        break;
+                                    case FieldType.String:
+                                        <input type="text" name="@($"FieldValues[{Model}]")" value="@Model" />
+                                        break;
+                                    default:
+                                        <p>Unsupported field type.</p>
+                                        break;
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            }
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -62,3 +87,29 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts {
+    <script>
+        $.getJSON(
+            '@Url.Action("GetTree","Category")',
+            function(data) {
+                $('#category_tree').tree({
+                    data: data,
+                    autoOpen: 0
+                });
+            }
+        );
+
+        $("#category_tree").on(
+            'tree.select',
+            function(event) {
+                if (event.node) {
+                    const node = event.node;
+                    $("#selected_category").text(node.name);
+                    $("#selected_category_id_id").val(node.id);
+                }
+            }
+        );
+        
+        
+    </script>
+}

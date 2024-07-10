@@ -2,5 +2,5 @@
 
 public class ProductCollectionViewModel : IViewModel
 {
-    public ICollection<ProductViewModel> ProductCollection = new HashSet<ProductViewModel>();
+    public List<ProductViewModel> ProductCollection = new List<ProductViewModel>();
 }

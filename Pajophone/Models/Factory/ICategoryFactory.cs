@@ -6,5 +6,5 @@ public interface ICategoryFactory
     public void SetViewModel(ProductCategoryViewModel viewModel);
     public ProductCategoryModel GetCategory();
 
-    public HashSet<ProductFieldKeyModel> GetFieldKeys();
+    public List<ProductFieldKeyModel> GetFieldKeys();
 }

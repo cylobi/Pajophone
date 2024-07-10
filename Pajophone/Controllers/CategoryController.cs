@@ -66,16 +66,14 @@ namespace Pajophone.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Console.WriteLine(categoryViewModel.ParentId);
-                // _factory.SetViewModel(categoryViewModel);
-                // var category = _factory.GetCategory();
-                // var fieldKeys = _factory.GetFieldKeys();
-                // _context.Add(category);
-                // _context.AddRange(fieldKeys);
-                // await _context.SaveChangesAsync();
+                _factory.SetViewModel(categoryViewModel);
+                var category = _factory.GetCategory();
+                var fieldKeys = _factory.GetFieldKeys();
+                _context.Add(category);
+                _context.AddRange(fieldKeys);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            // ViewData["ParentCategoryId"] = new SelectList(_context.ProductCategories, "Id", "Id", productCategoryModel.ParentCategoryId);
             return View(categoryViewModel);
         }
         
@@ -109,6 +107,15 @@ namespace Pajophone.Controllers
                 nodes.Add(node);
             }
             return nodes;
+        }
+
+        public async Task<IActionResult> GetFieldKeys(int categoryId)
+        {
+            var fields = await _context
+                .ProductFieldKeys
+                .Where(fk => fk.CategoryId == categoryId)
+                .ToListAsync();
+            return Json(fields);
         }
 
         // GET: Category/Edit/5

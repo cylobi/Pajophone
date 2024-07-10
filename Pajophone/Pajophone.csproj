@@ -29,6 +29,7 @@
 
     <ItemGroup>
       <Folder Include="Migrations\" />
+      <Folder Include="Views\Product\partial\" />
       <Folder Include="wwwroot\assets\FontAwesome\" />
       <Folder Include="wwwroot\assets\Quicksand-font\" />
       <Folder Include="wwwroot\lib\bs5tree\" />

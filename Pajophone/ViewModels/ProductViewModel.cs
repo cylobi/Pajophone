@@ -10,8 +10,9 @@ public class ProductViewModel : IViewModel
     public string Color { get; set; }
     public double Price { get; set; }
     public IFormFile? Image { get; set; }
-
+    
+    public int? CategoryId { get; set; } 
     public ProductCategoryViewModel? Category { get; set; }
-    public ICollection<ProductFieldViewModel>? Fields { get; set; } = new HashSet<ProductFieldViewModel>();
+    public List<ProductFieldViewModel>? Fields { get; set; } = new List<ProductFieldViewModel>();
     
 }

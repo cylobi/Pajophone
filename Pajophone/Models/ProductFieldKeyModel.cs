@@ -9,5 +9,5 @@ public class ProductFieldKeyModel : IModel
     public int CategoryId { get; set; }
     public ProductCategoryModel? Category { get; set; }
 
-    public ICollection<ProductFieldValueModel> FieldValues { get; set; } = new HashSet<ProductFieldValueModel>();
+    public List<ProductFieldValueModel> FieldValues { get; set; } = new List<ProductFieldValueModel>();
 }

@@ -2,5 +2,5 @@
 
 public class CategoryCollectionViewModel : IViewModel
 {
-    public ICollection<ProductCategoryViewModel> Categories = new HashSet<ProductCategoryViewModel>();
+    public List<ProductCategoryViewModel> Categories = new List<ProductCategoryViewModel>();
 }
