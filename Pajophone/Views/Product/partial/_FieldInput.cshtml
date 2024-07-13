@@ -1,0 +1,28 @@
+﻿@model Pajophone.ViewModels.ProductViewModel
+
+<div class="form-group">
+    <div class="row">
+        <input type="hidden" asp-for="Fields[0].KeyId"/>
+        
+        @{
+            switch (Model.Fields[0].fieldType)
+            {
+            case FieldType.Bool:
+                <div class="checkbox">
+                    <input type="checkbox" name="mock-checkbox" />
+                    <input type="text" class="visually-hidden" asp-for="Fields[0].Value">
+                </div>
+                break;
+            case FieldType.Range:
+                <input type="number" asp name="@($"FieldValues[{Model}]")" value="@Model" />
+                break;
+            case FieldType.String:
+                <input type="text" name="@($"FieldValues[{Model}]")" value="@Model" />
+                break;
+            default:
+                <p>Unsupported field type.</p>
+                break;
+            }
+        }
+    </div>
+</div>

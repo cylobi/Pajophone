@@ -6,8 +6,12 @@
             <i class="fa-regular fa-trash"></i>
         </button>
     </div>
-    <input type="text" class="form-control m-input" placeholder="Field Name" name="FieldKeys[0].Key">
-    @Html.DropDownList("FieldKeys[0].FieldType",
-        Html.GetEnumSelectList<FieldType>(),
-        new { @class = "form-control"})
+    <div class="form-group">
+        <input asp-for="@Model.FieldKeys[0].Key" class="form-control" />
+        @Html.ValidationMessageFor(m => m.FieldKeys[0].Key,
+        "", new {@class = "text-danger"})
+        @Html.DropDownListFor(m => m.FieldKeys[0].FieldType, Html.GetEnumSelectList<FieldType>(), "Select Field Type", new { @class = "form-control field-type-dropdown"})
+        @Html.ValidationMessageFor(m => m.FieldKeys[0].FieldType, 
+            "", new {@class = "text-danger"})
+    </div>
 </div>

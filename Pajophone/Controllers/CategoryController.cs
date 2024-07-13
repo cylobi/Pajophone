@@ -114,6 +114,13 @@ namespace Pajophone.Controllers
             var fields = await _context
                 .ProductFieldKeys
                 .Where(fk => fk.CategoryId == categoryId)
+                .Select(fk => new
+                {
+                    keyId = fk.Id,
+                    key = fk.Key,
+                    FieldType = fk.FieldType,
+                    value = ""
+                })
                 .ToListAsync();
             return Json(fields);
         }
@@ -140,7 +147,7 @@ namespace Pajophone.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ParentCategoryId")] ProductCategoryModel productCategoryModel)
+        public async Task<IActionResult> Edit(int id, ProductCategoryModel productCategoryModel)
         {
             if (id != productCategoryModel.Id)
             {

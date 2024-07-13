@@ -11,27 +11,31 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div id="category_tree"></div>
-            <div class="my-2"> Selected Parent Category : <span id="selected_parent"></span> </div>
+            <div id="category_tree">
+                // Category Tree will be Loaded here by jquery
+            </div>
+            <div class="my-2"> Selected Parent Category : <span class="text-primary" id="selected_parent"></span> </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control"/>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group visually-hidden">
                 <label asp-for="ParentId" class="control-label"></label>
                 <input asp-for="ParentId" id="selected_parent_id" class="form-control"></input>
+                <span asp-validation-for="ParentId" class="text-danger"></span>
             </div>
             <div class="my-2"> Fields : </div>
             <div id="field_group">
+                // Extra Fields Will be dynamically added here
             </div>
-                <button id="rowAdder" type="button" class="btn btn-dark ms-3">
-                    <span class="fa fa-solid fa-plus"></span>
-                </button>
+            <button id="rowAdder" type="button" class="btn btn-dark ms-3">
+                <span class="fa fa-solid fa-plus"></span>
+            </button>
             <div class="form-group mt-2">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary"/>
             </div>
         </form>
     </div>
@@ -66,19 +70,15 @@
             }
         );
         
-        function replaceIndexInNameAttr(elements) {
-            let index = 0;
-            elements.forEach(ele => {
-                ele.name = ele.name.replace(/\[\d+\]/g, `[${index}]`);
-                index ++;
-            })
-        }
-        
         function reIndex() {
             const inputs = document.querySelectorAll('#field_group input');
             const selects = document.querySelectorAll('#field_group select');
-            replaceIndexInNameAttr(inputs);
-            replaceIndexInNameAttr(selects);
+            inputs.forEach((input, index) => {
+                input.name = `FieldKeys[${index}].Key`;
+            });
+            selects.forEach((select, index) => {
+                select.name = `FieldKeys[${index}].FieldType`;
+            });
         }
         
         $("#rowAdder").click(function () {

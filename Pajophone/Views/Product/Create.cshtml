@@ -12,12 +12,15 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div id="category_tree" class="form-group"></div>
+            <div id="category_tree" class="form-group">
+                // Category Tree will be Loaded here by jquery
+            </div>
             <div class="my-2"> Selected Category : <span id="selected_category"></span> </div>
             <div class="form-group visually-hidden">
                 <label asp-for="CategoryId" class="control-label"></label>
                 <input asp-for="CategoryId" id="selected_category_id" class="form-control"></input>
             </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -43,39 +46,8 @@
                 <input asp-for="Image" class="form-control" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
-            @{
-                for (int i = 0; i < Model.Fields.Count; i++)
-                {
-                    <div class="form-group">
-                        <div class="row">
-                            <input type="hidden" asp-for="Fields[i].KeyId" value="" />
-                            @{
-                                var fieldType = Model.Fields[i].fieldType;
-                                switch (fieldType)
-                                {
-                                    case FieldType.Bool:
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" />
-                                                <input type="text" class="visually-hidden" asp-for="Fields[i].Value">
-                                            </label>
-                                        </div>
-                                        break;
-                                    case FieldType.Range:
-                                        <input type="number" name="@($"FieldValues[{Model}]")" value="@Model" />
-                                        break;
-                                    case FieldType.String:
-                                        <input type="text" name="@($"FieldValues[{Model}]")" value="@Model" />
-                                        break;
-                                    default:
-                                        <p>Unsupported field type.</p>
-                                        break;
-                                }
-                            }
-                        </div>
-                    </div>
-                }
-            }
+            <div id="fields-container">
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -90,7 +62,7 @@
 @section Scripts {
     <script>
         $.getJSON(
-            '@Url.Action("GetTree","Category")',
+            '@Url.Action("GetTree", "Category")',
             function(data) {
                 $('#category_tree').tree({
                     data: data,
@@ -105,11 +77,30 @@
                 if (event.node) {
                     const node = event.node;
                     $("#selected_category").text(node.name);
-                    $("#selected_category_id_id").val(node.id);
+                    $("#selected_category_id").val(node.id);
+
+                    $.ajax({
+                        url: '@Url.Action("GetFieldKeys", "Category")',
+                        type: 'GET',
+                        data: { categoryId: node.id },
+                        success: function(fields) {
+                            $('.dynamic-fields').remove();
+                            fields.forEach((field) => {
+                                console.log(field);
+                                let fieldHtml = `
+                            <div class="form-group dynamic-fields my-2">
+                                <label class="control-label" >${field.key}</label>
+                                <input class="${field.fieldType === 0 ? 'form-check-input': "form-control w-25"}" type="${field.fieldType === 0 ? 'checkbox' : 'text'}" name="Fields[${fields.indexOf(field)}].Value" />
+                                <input type="hidden" name="Fields[${fields.indexOf(field)}].KeyId" value="${field.keyId}" />
+                                <input type="hidden" name="Fields[${fields.indexOf(field)}].Key" value="${field.key}" />
+                                <input type="hidden" name="Fields[${fields.indexOf(field)}].FieldType" value="${field.fieldType}" />
+                            </div>`;
+                                $('#fields-container').append(fieldHtml);
+                            });
+                        }
+                    });
                 }
             }
         );
-        
-        
     </script>
 }
